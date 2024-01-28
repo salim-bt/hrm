@@ -28,10 +28,13 @@ import {useRouter} from "next/router";
 import {User} from "@nextui-org/user";
 import {Dropdown} from "@nextui-org/dropdown";
 import {LogOutIcon, Settings2Icon, User2Icon} from "lucide-react";
+import {useAuth} from "react-oidc-context";
 
 export const Navbar = () => {
 
     const router = useRouter();
+
+    const {signoutSilent,user} = useAuth();
 
     const searchInput = (
         <Input
@@ -90,7 +93,7 @@ export const Navbar = () => {
                 <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
                 <Dropdown>
                     <DropdownTrigger>
-                        <User name="Salim Pradhan" description="Software Engineer" avatarProps={{src: "https://i.pravatar.cc/150?u=a04258114e29026702d"}}/>
+                        <User name={user?.profile.name} description={user?.profile.nickname} avatarProps={{src: "https://i.pravatar.cc/150?u=a04258114e29026702d"}}/>
                     </DropdownTrigger>
                     <DropdownMenu
                         className="w-32 bg-white/50 backdrop-blur-lg backdrop-filter"
@@ -98,26 +101,29 @@ export const Navbar = () => {
                     >
                         <DropdownSection>
                             <DropdownItem
-                                href="/profile"
                             >
-                                <div
+                                <NextLink
+                                    href="/profile"
                                     className="flex items-center"
                                 >
                                     <User2Icon size={16} className="mr-2"/>
                                     Profile
-                                </div>
+                                </NextLink>
                             </DropdownItem>
-                            <DropdownItem
-                                href="/settings"
-                                className="flex items-center"
-                            >
-                                <div className="flex items-center">
+                            <DropdownItem>
+                                <NextLink 
+                                    href="/settings"
+                                     className="flex items-center">
                                     <Settings2Icon size={16} className="mr-2"/>
                                     Settings
-                                </div>
+                                </NextLink>
                             </DropdownItem>
                             <DropdownItem
-                                href="/logout"
+                                onClick={async() => {
+                                    await signoutSilent({
+                                        post_logout_redirect_uri: process.env.NEXTAUTH_URL,
+                                    });
+                                }}
                             >
                                 <div className="flex items-center text-danger">
                                     <LogOutIcon size={16} className="mr-2"/>
@@ -161,6 +167,20 @@ export const Navbar = () => {
                             </Link>
                         </NavbarMenuItem>
                     ))}
+                    <NavbarMenuItem
+                        className="mt-2"
+                    >
+                        <Button
+                            className="w-full"
+                            variant="solid"
+                            color="danger"
+                            onClick={async() => {
+                                await signoutSilent({
+                                    post_logout_redirect_uri: process.env.NEXTAUTH_URL,
+                                });
+                            }}
+                        >Logout</Button>
+                    </NavbarMenuItem>
                 </div>
             </NavbarMenu>
         </NextUINavbar>

@@ -35,25 +35,34 @@ function Dropzone({fileUrls,setFileUrls}: DropzoneProps) {
     })
 
     return (
-        <div {...getRootProps()}>
+        <div {...getRootProps()} 
+            className='w-full bg-gray-100 border-2 border-gray-300 border-dashed rounded-lg p-12'
+        >
         {/* @ts-ignore**/}
             <Input
                 aria-label="Dropzone"
+                placeholder='Drop files here or click to upload'
                 aria-labelledby={isDragActive ? "Dropzone" : undefined}
-                {...getInputProps()} />
-            {
-                fileUrls.length===0&&isDragActive ?
-                    <p>Drop the files here ...</p> :
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-            }
+                {...getInputProps()} 
+                size='lg'
+                className='hidden'    
+            />
+            <div className="flex justify-center items-center w-full h-auto">
+                <p className='text-center text-gray-400'>Drag and drop files here or click to upload</p>
+            </div>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10'>
             {
                 fileUrls.map((fileUrl) => (
                     <Image
                         key={fileUrl}
-                        alt="image" src={fileUrl} width={200} height={200} />
+                        alt="image" 
+                        src={fileUrl} 
+                        width={300} 
+                        height={300} 
+                    />
                 ))
             }
-
+            </div>
         </div>
     )
 }

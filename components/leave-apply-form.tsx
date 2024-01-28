@@ -43,18 +43,21 @@ const LeaveApplyForm = () => {
                 from: new Date(),
                 to: new Date(),
             },
-            attachment: [],
+            attachment: fileUrls,
             sendToUserId: "",
         },
     });
 
     const onSubmit:SubmitHandler<z.infer<typeof leaveApplyFormSchema>> = (data) => {
         console.log(data);
+        console.log(fileUrls);
     }
 
     return (
         <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form 
+            className="w-full max-w-3xl"
+        onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 gap-6">
                 <FormField
                     name={"leaveType"}
@@ -136,6 +139,8 @@ const LeaveApplyForm = () => {
                             <FormControl>
                                 <Textarea
                                     {...field}
+                                    cols={60}
+                                    rows={10}
                                     id="reason"
                                     name="reason"
                                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
@@ -151,16 +156,6 @@ const LeaveApplyForm = () => {
                         <FormItem>
                             <FormLabel htmlFor={field.name}>Attachment</FormLabel>
                             <FormControl>
-                                {/*<Input*/}
-                                {/*    onChange={(e) => {*/}
-
-                                {/*    }}*/}
-                                {/*    id="attachment"*/}
-                                {/*    name="attachment"*/}
-                                {/*    type="file"*/}
-                                {/*    multiple*/}
-                                {/*    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"*/}
-                                {/*/>*/}
                                 <Dropzone
                                     fileUrls={fileUrls}
                                     setFileUrls={setFileUrls}
@@ -174,7 +169,7 @@ const LeaveApplyForm = () => {
                     name={"sendToUserId"}
                     render={({field})=>(
                         <FormItem>
-                            <FormLabel htmlFor={field.name}>Semd To</FormLabel>
+                            <FormLabel htmlFor={field.name}>Send To</FormLabel>
                             <FormControl>
                                 <Select
                                     {...field}

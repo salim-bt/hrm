@@ -66,11 +66,24 @@
 /*  }*/
 /*}*/
 
-/*@layer base {*/
+/* @layer base {*/
 /*  * {*/
 /*    @apply border-border;*/
 /*  }*/
 /*  body {*/
 /*    @apply bg-background text-foreground;*/
 /*  }*/
-/*}*/
+/*} */
+
+@layer base{
+    .spinner {
+        border-top-color: var(--primary);
+        border-left-color: var(--primary);
+    }
+
+    @keyframes spinner {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
