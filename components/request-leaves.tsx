@@ -62,8 +62,8 @@ export default function RenderRequestLeaves() {
                                     <Button
                                     >
                                         <Link
-                                            href={`/leaves/approve/${leave.id}`}
-                                            color={"success"}
+                                            href={`/leave/approve/${leave.id}`}
+                                            className={"text-green-500"}
                                         >
                                             Approve
                                         </Link>
@@ -72,7 +72,7 @@ export default function RenderRequestLeaves() {
                                     >
                                         <Link
                                             color={"primary"}
-                                            href={`/leaves/view/${leave.id}`}
+                                            href={`/leave/view/${leave.id}`}
                                         >
                                             View
                                         </Link>

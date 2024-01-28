@@ -1,6 +1,8 @@
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import RenderLeaveStatus from "@/components/leave-status";
+import {Dropzone} from "@/components/dropzone";
+import React from "react";
 export default function IndexPage() {
 	return (
 		<DefaultLayout>
@@ -17,7 +19,6 @@ export default function IndexPage() {
 					{RenderLeaveStatus()}
 				</div>
 				<div className="mt-8">
-
 				</div>
 			</section>
 		</DefaultLayout>

@@ -9,7 +9,7 @@ import {
     NavbarMenuToggle,
     NavbarBrand,
     NavbarItem,
-    NavbarMenuItem,
+    NavbarMenuItem, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem,
 } from "@nextui-org/react";
 
 import {link as linkStyles} from "@nextui-org/theme";
@@ -25,6 +25,9 @@ import {
 
 import {Logo} from "@/components/icons";
 import {useRouter} from "next/router";
+import {User} from "@nextui-org/user";
+import {Dropdown} from "@nextui-org/dropdown";
+import {LogOutIcon, Settings2Icon, User2Icon} from "lucide-react";
 
 export const Navbar = () => {
 
@@ -33,6 +36,7 @@ export const Navbar = () => {
     const searchInput = (
         <Input
             aria-label="Search"
+            aria-labelledby="Search"
             classNames={{
                 inputWrapper: "bg-default-100",
                 input: "text-sm",
@@ -66,9 +70,10 @@ export const Navbar = () => {
                             <NextLink
                                 className={clsx(
                                     linkStyles({color: "foreground"}),
-                                    "data-[active=true]:text-primary data-[active=true]:font-medium"
+                                    "data-[active=true]:text-primary data-[active=true]:font-medium",
+                                    "capitalize",
+                                    item.href === router.pathname && "font-medium text-primary"
                                 )}
-                                color="foreground"
                                 href={item.href}
                             >
                                 {item.label}
@@ -83,9 +88,45 @@ export const Navbar = () => {
                     <ThemeSwitch/>
                 </NavbarItem>
                 <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-                <Link href="/leave/apply">
-                    <Button color="primary">Apply Leave</Button>
-                </Link>
+                <Dropdown>
+                    <DropdownTrigger>
+                        <User name="Salim Pradhan" description="Software Engineer" avatarProps={{src: "https://i.pravatar.cc/150?u=a04258114e29026702d"}}/>
+                    </DropdownTrigger>
+                    <DropdownMenu
+                        className="w-32 bg-white/50 backdrop-blur-lg backdrop-filter"
+                        style={{maxHeight: "calc(100vh - 2rem)"}}
+                    >
+                        <DropdownSection>
+                            <DropdownItem
+                                href="/profile"
+                            >
+                                <div
+                                    className="flex items-center"
+                                >
+                                    <User2Icon size={16} className="mr-2"/>
+                                    Profile
+                                </div>
+                            </DropdownItem>
+                            <DropdownItem
+                                href="/settings"
+                                className="flex items-center"
+                            >
+                                <div className="flex items-center">
+                                    <Settings2Icon size={16} className="mr-2"/>
+                                    Settings
+                                </div>
+                            </DropdownItem>
+                            <DropdownItem
+                                href="/logout"
+                            >
+                                <div className="flex items-center text-danger">
+                                    <LogOutIcon size={16} className="mr-2"/>
+                                    Logout
+                                </div>
+                            </DropdownItem>
+                        </DropdownSection>
+                    </DropdownMenu>
+                </Dropdown>
             </NavbarContent>
 
             <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
@@ -100,6 +141,7 @@ export const Navbar = () => {
             </NavbarContent>
 
             <NavbarMenu>
+                <User name="Salim Pradhan" description="Software Engineer" avatarProps={{src: "https://i.pravatar.cc/150?u=a04258114e29026702d"}}/>
                 {searchInput}
                 <div className="mx-4 mt-2 flex flex-col gap-2">
                     {siteConfig.navMenuItems.map((item, index) => (

@@ -1,5 +1,6 @@
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
+import ViewLeave from "@/components/view-leave";
 
 export default function IndexPage() {
     return (
@@ -13,8 +14,8 @@ export default function IndexPage() {
                     {/*    All your Pending or Approved Leaves will appear here.*/}
                     {/*</h4>*/}
                 </div>
-                <div className="flex flex-col gap-4 mt-8">
-
+                <div className="flex flex-col gap-4 mt-8 w-full items-center justify-center">
+                    <ViewLeave/>
                 </div>
                 <div className="mt-8">
 

@@ -16,6 +16,10 @@ export const siteConfig = {
             label: "leave request",
             href: "/leave/request",
         },
+        {
+            label: "apply leave",
+            href: "/leave/apply"
+        }
     ],
     navMenuItems: [
         {

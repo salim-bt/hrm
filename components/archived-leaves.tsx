@@ -58,7 +58,7 @@ export default function RenderArchivedLeaves(){
                                     <Button>
                                         <Link
                                             color={"primary"}
-                                            href={`/leaves/view/${leave.id}`}
+                                            href={`/leave/view/${leave.id}`}
                                         >
                                             View
                                         </Link>

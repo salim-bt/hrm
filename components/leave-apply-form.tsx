@@ -10,12 +10,14 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import {Select, SelectSection, SelectItem} from "@nextui-org/select";
-import {Button} from "@/components/ui/button";
 import {Popover, PopoverContent, PopoverTrigger} from "@nextui-org/popover";
 import {format} from "date-fns";
 import {CalendarIcon} from "lucide-react";
 import {Calendar} from "@/components/ui/calendar";
 import React from "react";
+import {Textarea} from "@nextui-org/input";
+import {Input,Button} from "@nextui-org/react";
+import {Dropzone} from "@/components/dropzone";
 
 const leaveApplyFormSchema = z.object({
     leaveType: z.string(),
@@ -31,6 +33,7 @@ const leaveApplyFormSchema = z.object({
 });
 
 const LeaveApplyForm = () => {
+    const [fileUrls, setFileUrls] = React.useState<string[]>([]);
     const form = useForm<z.infer<typeof leaveApplyFormSchema>>({
         mode: "onBlur",
         resolver: zodResolver(leaveApplyFormSchema),
@@ -63,10 +66,11 @@ const LeaveApplyForm = () => {
                                     {...field}
                                     id="leaveType"
                                     aria-label={"leaveType"}
+                                    placeholder={"Select Leave Type"}
                                     >
                                     <SelectSection>
                                         {["Casual", "Sick", "Maternity", "Paternity", "Bereavement", "Unpaid", "Study", "Other"].map((item, index) => (
-                                            <SelectItem key={index} value={item}>
+                                            <SelectItem key={item} value={item}>
                                                 {item}
                                             </SelectItem>
                                         ))}
@@ -87,8 +91,8 @@ const LeaveApplyForm = () => {
                                     <PopoverTrigger>
                                         <FormControl>
                                             <Button
-                                                variant={"outline"}
-                                                className="pl-3 text-left font-normal w-full h-24"
+                                                variant="shadow"
+                                                className="pl-3 text-left font-normal w-full h-24 bg-gray-100"
                                             >
                                                 {field.value.from ? (
                                                     <div
@@ -130,7 +134,7 @@ const LeaveApplyForm = () => {
                         <FormItem>
                             <FormLabel htmlFor={field.name}>Reason</FormLabel>
                             <FormControl>
-                                <textarea
+                                <Textarea
                                     {...field}
                                     id="reason"
                                     name="reason"
@@ -147,15 +151,19 @@ const LeaveApplyForm = () => {
                         <FormItem>
                             <FormLabel htmlFor={field.name}>Attachment</FormLabel>
                             <FormControl>
-                                <input
-                                    onChange={(e) => {
+                                {/*<Input*/}
+                                {/*    onChange={(e) => {*/}
 
-                                    }}
-                                    id="attachment"
-                                    name="attachment"
-                                    type="file"
-                                    multiple
-                                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
+                                {/*    }}*/}
+                                {/*    id="attachment"*/}
+                                {/*    name="attachment"*/}
+                                {/*    type="file"*/}
+                                {/*    multiple*/}
+                                {/*    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"*/}
+                                {/*/>*/}
+                                <Dropzone
+                                    fileUrls={fileUrls}
+                                    setFileUrls={setFileUrls}
                                 />
                             </FormControl>
                             <FormMessage/>
@@ -166,7 +174,7 @@ const LeaveApplyForm = () => {
                     name={"sendToUserId"}
                     render={({field})=>(
                         <FormItem>
-                            <FormLabel htmlFor={field.name}>Leave Type</FormLabel>
+                            <FormLabel htmlFor={field.name}>Semd To</FormLabel>
                             <FormControl>
                                 <Select
                                     {...field}
@@ -179,7 +187,7 @@ const LeaveApplyForm = () => {
                                             "HR",
                                             "HOD"
                                         ].map((item, index) => (
-                                            <SelectItem key={index} value={item}>
+                                            <SelectItem key={item} value={item}>
                                                 {item}
                                             </SelectItem>
                                         ))}
@@ -192,7 +200,13 @@ const LeaveApplyForm = () => {
                 />
             </div>
             <div className="mt-6">
-                <input type="submit"/>
+                <Button
+                    type="submit"
+                    color={"primary"}
+                    className="w-full"
+                >
+                    Submit
+                </Button>
             </div>
         </form>
         </Form>
