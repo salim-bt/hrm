@@ -1,4 +1,4 @@
-// import leaveRouter from "@/server/api/routers/leave";
+import leaveRouter from "@/server/api/router/leave";
 import { createTRPCRouter } from "@/server/api/trpc";
 // import leaveTypeRouter from "@/server/api/routers/leave-type";
 // import userRouter from "@/server/api/routers/user";
@@ -9,7 +9,7 @@ import { createTRPCRouter } from "@/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-    // leave: leaveRouter,
+    leave: leaveRouter,
     // leaveType: leaveTypeRouter,
     // user: userRouter,
 });

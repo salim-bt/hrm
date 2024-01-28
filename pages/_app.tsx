@@ -5,18 +5,21 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { fontSans, fontMono } from "@/config/fonts";
 import {useRouter} from 'next/router';
 import "@/styles/globals.css";
+import {api} from "@/lib/trpc";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-
 	return (
 		<NextUIProvider navigate={router.push}>
+
 			<NextThemesProvider>
 				<Component {...pageProps} />
 			</NextThemesProvider>
 		</NextUIProvider>
 	);
 }
+
+export default api.withTRPC(App);
 
 export const fonts = {
 	sans: fontSans.style.fontFamily,

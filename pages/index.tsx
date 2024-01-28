@@ -3,7 +3,11 @@ import DefaultLayout from "@/layouts/default";
 import RenderLeaveStatus from "@/components/leave-status";
 import {Dropzone} from "@/components/dropzone";
 import React from "react";
+import {api} from "@/lib/trpc";
 export default function IndexPage() {
+	const dataQuery = api.leave.getLeave.useQuery();
+	const data = dataQuery.data;
+	console.log(data)
 	return (
 		<DefaultLayout>
 			<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">

@@ -14,7 +14,7 @@ export default function RenderLeaveStatus(){
                     <div className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4 items-center justify-center">
                         <div className="relative col-span-6 md:col-span-4">
                             <Image
-                                src="https://source.unsplash.com/random/100x100"
+                                src={leave.image}
                                 alt={leave.type}
                                 width={180}
                                 height={180}

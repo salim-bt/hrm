@@ -26,7 +26,7 @@ import {decodeJwt} from "jose";
  */
 
 interface CreateContextOptions {
-    session: Session | null;
+    // session: Session | null;
 }
 
 /**
@@ -41,7 +41,7 @@ interface CreateContextOptions {
  */
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
     return {
-        session: opts.session,
+        // session: opts.session,
         db,
     };
 };
@@ -117,14 +117,15 @@ export const publicProcedure = t.procedure;
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(async ({ ctx, next }) => {
-    if (!ctx.session || !ctx.session.user) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-
-    return next({
-        ctx: {
-            // infers the `session` as non-nullable
-            session: { ...ctx.session, user: ctx.session.user },
-        },
-    });
+    // if (!ctx.session || !ctx.session.user) {
+    //     throw new TRPCError({ code: "UNAUTHORIZED" });
+    // }
+    //
+    // return next({
+    //     ctx: {
+    //         // infers the `session` as non-nullable
+    //         session: { ...ctx.session, user: ctx.session.user },
+    //     },
+    // });
+    return next();
 });
