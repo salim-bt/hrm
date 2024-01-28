@@ -1,27 +1,13 @@
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import RenderLeaveStatus from "@/components/leave-status";
-import {Dropzone} from "@/components/dropzone";
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {api} from "@/lib/trpc";
 import { useAuth } from "react-oidc-context";
+import SettingUpUser from "@/components/settingUpUser";
 export default function IndexPage() {
-	const dataQuery = api.leave.getLeave.useQuery({
-		token: useAuth().user?.access_token,
-	});
-	const data = dataQuery.data;
 	const {user} = useAuth();
-
-	// fetch("/api/hello",{
-	// 	method: "POST",
-	// 	body: JSON.stringify({
-	// 		token: user?.access_token,
-	// 	}),
-	// 	headers: {
-	// 		"Content-Type": "application/json",
-	// 	},
-	// }).then((res) => res.json());
-
+		
 	return (
 		<DefaultLayout>
 			<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -34,7 +20,7 @@ export default function IndexPage() {
 					</h4>
 				</div>
 				<div className="grid grid-cols-2 gap-4 mt-8">
-					{RenderLeaveStatus()}
+					{RenderLeaveStatus({data:null})}
 				</div>
 				<div className="mt-8">
 				</div>

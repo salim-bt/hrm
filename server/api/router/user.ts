@@ -9,10 +9,10 @@ const employeeSchema =z.object({
     id: z.string(),
     name: z.string(),
     email: z.string(),
-    role: z.array(z.string()),
+    role: z.string(),
     dob: z.date(),
     gender: z.enum(["MALE", "FEMALE"]),
-    supervisorId: z.number().optional(),
+    supervisorId: z.string().optional(),
     department: z.string().optional(),
     phoneNumber: z.string().optional(),
     address: z.string().optional(),
@@ -54,7 +54,11 @@ const employeeRouter = createTRPCRouter({
         const {employee} = input;
 
         return ctx.db.employee.create({
-            data:employee
+            data:{
+                ...employee,
+                role: [employee.role],
+                supervisorId: null,                
+            }
         })
     }),
     updateEmployee: protectedProcedure
@@ -86,12 +90,14 @@ const employeeRouter = createTRPCRouter({
     .input(z.object({
         email: z.string()
     }))
-    .query(({ctx,input})=>{
-        return ctx.db.employee.findFirst({
+    .query(async({ctx,input})=>{
+        const user = await ctx.db.employee.findFirst({
             where:{
                 email: input.email
-            }
+            },
         })
+
+        return user;
     }),
     getEmployeeLeaveTakenOfEachType: protectedProcedure
     .input(z.object({

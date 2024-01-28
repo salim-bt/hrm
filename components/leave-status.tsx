@@ -5,8 +5,15 @@ import {
 import {Card, CardBody} from "@nextui-org/react";
 import {Image} from "@nextui-org/image";
 import {Progress} from "@nextui-org/progress";
+import { api } from "@/lib/trpc";
+import { useAuth } from "react-oidc-context";
 
-export default function RenderLeaveStatus(){
+export default function RenderLeaveStatus({
+    data,
+}:{
+    data:any,
+}){
+    console.log(data);
     return leaveDetails.map((leave:LeaveDetails, index) => {
         return (
             <Card key={index} shadow={"md"}>

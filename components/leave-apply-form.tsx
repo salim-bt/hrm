@@ -89,7 +89,7 @@ const LeaveApplyForm = () => {
                     render={({field})=>(
                         <FormItem>
                             <FormItem>
-                                <FormLabel>Date of birth</FormLabel>
+                                <FormLabel>Date</FormLabel>
                                 <Popover>
                                     <PopoverTrigger>
                                         <FormControl>
